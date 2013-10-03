@@ -37,7 +37,7 @@ def load_args():
         help=("hook(s) to execute for each element"))
     parser.add_argument(
         '-b', '--blacklist', nargs='+', 
-        help=("script names, that if found, will be blacklisted and not run")
+        help=("script names, that if found, will be blacklisted and not run"))
     parser.add_argument(
         '-d', '--debug', action='store_true',
         help=("Debugging output"))
