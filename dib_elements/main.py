@@ -36,6 +36,9 @@ def load_args():
         '-k', '--hook', nargs='+', required=True,
         help=("hook(s) to execute for each element"))
     parser.add_argument(
+        '-b', '--blacklist', nargs='+', 
+        help=("script names, that if found, will be blacklisted and not run")
+    parser.add_argument(
         '-d', '--debug', action='store_true',
         help=("Debugging output"))
     parser.add_argument(
@@ -69,6 +72,7 @@ def main():
         logging.basicConfig(level=logging.INFO, 
                             format="%(levelname)s:%(asctime)s:%(name)s:%(message)s")
     em = manager.ElementManager(args.element, args.hook, args.element_path,
+                                args.blacklist,
                                 args.dry_run, args.interactive)
     em.run()
 

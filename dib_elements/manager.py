@@ -28,8 +28,8 @@ from diskimage_builder.elements import expand_dependencies
 
 class ElementManager(object):
 
-    def __init__(self, elements, hooks, element_paths=None, dry_run=False,
-                 interactive=False):
+    def __init__(self, elements, hooks, element_paths=None, blacklist=None,
+                 dry_run=False, interactive=False):
         """
         :param elements: Element names to apply.
         :type elements: list.
@@ -43,6 +43,7 @@ class ElementManager(object):
         self.elements = elements
         self.dry_run = dry_run
         self.hooks = hooks
+        self.blacklist = blacklist
         self.interactive = interactive
         self.loaded_elements = {}
 
@@ -133,6 +134,9 @@ class ElementManager(object):
 
         for script in scripts:
             logging.info("running script: %s" % script)
+            if os.path.basename(script) in self.blacklist:
+                logging.info("script %s is blacklisted, skipping." % script)
+                continue
             if not self.dry_run:
                 # environment must be preseverd so that the variables set
                 # earlier in os.environ are available in the scripts.
