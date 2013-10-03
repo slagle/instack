@@ -43,7 +43,7 @@ class ElementManager(object):
         self.elements = elements
         self.dry_run = dry_run
         self.hooks = hooks
-        self.blacklist = blacklist
+        self.blacklist = blacklist or []
         self.interactive = interactive
         self.loaded_elements = {}
 
